@@ -18,3 +18,5 @@ app.get("/", (_, res) => res.render("home"));
 
 
 이거 넣어야함 0.3 반 정도 했음
+
+그리고 git연동안됨.
