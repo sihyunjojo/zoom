@@ -29,4 +29,7 @@ Require stack:
     at Layer.handle [as handle_request] (C:\Users\si401\Desktop\zoom\node_modules\express\lib\router\layer.js:95:5)
     at next (C:\Users\si401\Desktop\zoom\node_modules\express\lib\router\route.js:137:13)
 
+
+# 해야할 것
+
 그리고 git연동안됨.
