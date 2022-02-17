@@ -1,16 +1,30 @@
+import http from "http";
+import WebSocket from "ws";
 import express from "express";
+
 
 const app = express();
 
 app.set("view engine","pug");
 app.set("views", __dirname + "/views");
 app.use("/public", express.static(__dirname + "/public"));
-app.get("/", (req, res) => res.render("home"));
-app.get("/*", (req, res) => res.redirect("/"));
+app.get("/", (_, res) => res.render("home"));
+app.get("/*", (_, res) => res.redirect("/"));
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
-app.listen(3000, handleListen);
+/* app.listen(3000, handleListen);
+ */
 
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+function handleConnect(socket) {
+    console.log(socket);
+}
+
+wss.on("connection",handleConnect);
+
+server.listen(3000, handleListen);
 
 /* 여기에서는 express를 import 하고 express 어플리케이션을 구성하고
 view engine을 pug로 설정하고 views 디렉토리가 설정되고
