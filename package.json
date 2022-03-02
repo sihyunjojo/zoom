@@ -1,21 +1,22 @@
 {
-  "name": "zoom",
-  "version": "1.0.0",
-  "description": "Zoom Clone using WebRTC and WebSockets",
-  "license": "MIT",
-  "scripts": {
-    "dev": "nodemon"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.17.0",
-    "@babel/core": "^7.17.0",
-    "@babel/node": "^7.16.8",
-    "@babel/preset-env": "^7.16.11",
-    "nodemon": "^2.0.15"
-  },
-  "dependencies": {
-    "express": "^4.17.3",
-    "jade": "^1.11.0",
-    "ws": "^8.5.0"
-  }
+    "name": "zoom",
+    "version": "1.0.0",
+    "description": "Zoom Clone using WebRTC and WebSockets",
+    "license": "MIT",
+    "scripts": {
+        "dev": "nodemon"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.17.0",
+        "@babel/core": "^7.17.0",
+        "@babel/node": "^7.16.8",
+        "@babel/preset-env": "^7.16.11",
+        "nodemon": "^2.0.15",
+        "pug": "^2.0.4"
+    },
+    "dependencies": {
+        "express": "^4.17.3",
+        "jade": "^1.11.0",
+        "ws": "^8.5.0"
+    }
 }
