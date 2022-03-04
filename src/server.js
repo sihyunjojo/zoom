@@ -22,17 +22,18 @@ function onSocketClose() {
     console.log("Disconnected from the Browswer X");
 }
 
-function onSocketMessage(message) {
-    console.log(message);
-}
+const sockets = []; /* 가짜 database */
+
 
 
 
 wss.on("connection", (socket) => {
+    sockets.push(socket); /* sockets에 넣어줌 */
     console.log("Connected to Browser");
     socket.on("close", onSocketClose);
-    socket.on("message", onSocketMessage);
-    socket.send("hello!!!");
+    socket.on("message", (message) => {
+        sockets.forEach((aSocket) => aSocket.send(message.toString('utf8')));
+    });
 });
 
 server.listen(3000, handleListen);
@@ -43,3 +44,16 @@ public파일들에 대해서도 똑같은 작업을 해주고 있다.
 
 public 파일들은 frontend에서 구동되는 코드고 아주 중요한 부분이다.
  */
+
+
+{
+    type: "message"
+    payload: "hello everyone!"
+}
+
+{
+    type: "nickname"
+    payload: "sihyun"
+}
+/* 
+json */
