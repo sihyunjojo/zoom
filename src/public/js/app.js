@@ -1,6 +1,5 @@
 const messageList = document.querySelector("ul");
 const nickForm = document.querySelector("#nick");
-
 const messageForm = document.querySelector("#message");
 const socket = new WebSocket(`ws://${window.location.host}`);
 
@@ -24,9 +23,7 @@ socket.addEventListener("close", () => {
     console.log("DisConnected from Server X");
 });
 
-setTimeout(() => {
-    socket.send("hello from the browsers")
-}, 1000)
+
 
 
 
@@ -34,6 +31,9 @@ function handleSubmit(event) {
     event.preventDefault();
     const input = messageForm.querySelector("input");
     socket.send(makeMessage("new_message", input.value));
+    const li = document.createElement("li");
+    li.innerText = `You: ${input.value}`;
+    messageList.append(li);
     input.value = ""; /* input을 비워줘야지 다음 값을 입력하기 들어가기 편함. */
 }
 
@@ -41,6 +41,7 @@ function handleNickSubmit(event) {
     event.preventDefault();
     const input = nickForm.querySelector("input");
     socket.send(makeMessage("nickname", input.value));
+    input.value = "";
 }
 
 messageForm.addEventListener("submit", handleSubmit);
