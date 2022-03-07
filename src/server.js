@@ -29,10 +29,19 @@ const sockets = []; /* 가짜 database */
 
 wss.on("connection", (socket) => {
     sockets.push(socket); /* sockets에 넣어줌 */
+    socket["nickname"] = "Anon";
     console.log("Connected to Browser");
     socket.on("close", onSocketClose);
-    socket.on("message", (message) => {
-        sockets.forEach((aSocket) => aSocket.send(message.toString('utf8')));
+    socket.on("message", (msg) => {
+        const message = JSON.parse(msg);
+        switch (message.type) {
+            case "new_message":
+                sockets.forEach((aSocket) =>
+                    aSocket.send(`${socket.nickname} : ${message.payload}`)
+                );
+            case "nickname":
+                socket["nickname"] = message.payload;
+        }
     });
 });
 
