@@ -40,6 +40,24 @@ socket["nickname] = message payload
 
 1.9
 나를 제외하고 채팅 보내기 나한테 까지 보내는건 이상함
+그러하여서 나의 닉네임: 채팅내용 을
+You: 채팅내용 으로 바꿈
+
+2.1 websocket을 사용하는 framework인 socket.io을 사용하기.
+public 방이 아닌 room을 만들어 줄 것이다.
+
+script로 socket.io를 프론트와 백엔드에 설치해줌.
+
+2.2 
+socket.io를 이용해서 front에서 back으로 값 받아오기
+
+socket.on 사용 front사용 방식
+
+2.3
+socket.emit과 socket.on 사용방법
+socket.on에서의 emit에서 받아온 함수 작용 방식
+
+
 
 
 ## 지금까지 한 것
