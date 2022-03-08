@@ -57,7 +57,10 @@ socket.on 사용 front사용 방식
 socket.emit과 socket.on 사용방법
 socket.on에서의 emit에서 받아온 함수 작용 방식
 
+2.4
+socket.io에는 server api와 client api가 있다.
+server api에 보면 socket의 id와 room의 id가 있다.
 
-
+채팅room 만들기!!!
 
 ## 지금까지 한 것

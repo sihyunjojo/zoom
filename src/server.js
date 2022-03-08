@@ -16,13 +16,15 @@ const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
+    socket.onAny((event) => {
+        console.log(`Socket Event: ${event}`);
+    });
     socket.on("enter_room", (roomName, done) => {
-        console.log(roomName);
-        setTimeout(() => {
-            done();
-            /* backend에서 실행시키는 것이 아니라 done 함수를 실행시키면 front에서 함수를 실행시킴 
-                       front에서 실행 버튼을 눌러주면 front에 있는 이 함수를 backend가 실행시킨다. */
-        }, 15000);
+        socket.join(roomName); //방이 있어야함.  방만듬
+        done();
+        /* backend에서 실행시키는 것이 아니라 done 함수를 실행시키면 front에서 함수를 실행시킴 
+         front에서 실행 버튼을 눌러주면 front에 있는 이 함수를 backend가 실행시킨다. */
+
     });
 });
 
