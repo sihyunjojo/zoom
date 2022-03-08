@@ -1,7 +1,6 @@
 import http from "http";
-import WebSocket from "ws";
+import SocketIO from "socket.io";
 import express from "express";
-
 
 const app = express();
 
@@ -12,47 +11,32 @@ app.get("/", (_, res) => res.render("home"));
 app.get("/*", (_, res) => res.redirect("/"));
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
-/* app.listen(3000, handleListen);
- */
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const httpServer = http.createServer(app);
+const wsServer = SocketIO(httpServer);
+
+wsServer.on("connection", (socket) => {
+    socket.onAny((event) => {
+        console.log(`Socket Event: ${event}`);
+    });
+    socket.on("enter_room", (roomName, done) => {
+        socket.join(roomName); //방이 있어야함.  방만듬
+        done();
+        /* backend에서 실행시키는 것이 아니라 done 함수를 실행시키면 front에서 함수를 실행시킴 
+         front에서 실행 버튼을 눌러주면 front에 있는 이 함수를 backend가 실행시킨다. */
+
+    });
+});
 
 function onSocketClose() {
     console.log("Disconnected from the Browswer X");
 }
 
-const sockets = []; /* 가짜 database */
+const sockets = [];
 
 
+httpServer.listen(3000, handleListen);
 
-
-wss.on("connection", (socket) => {
-    sockets.push(socket); /* sockets에 넣어줌 */
-    socket["nickname"] = "Anon";
-    console.log("Connected to Browser");
-    socket.on("close", onSocketClose);
-    socket.on("message", (msg) => {
-        const message = JSON.parse(msg);
-        switch (message.type) {
-            case "new_message":
-                sockets.forEach((aSocket) =>
-                    aSocket.send(`${socket.nickname} : ${message.payload}`)
-                );
-            case "nickname":
-                socket["nickname"] = message.payload;
-        }
-    });
-});
-
-server.listen(3000, handleListen);
-
-/* 여기에서는 express를 import 하고 express 어플리케이션을 구성하고
-view engine을 pug로 설정하고 views 디렉토리가 설정되고
-public파일들에 대해서도 똑같은 작업을 해주고 있다.
-
-public 파일들은 frontend에서 구동되는 코드고 아주 중요한 부분이다.
- */
 
 
 {
