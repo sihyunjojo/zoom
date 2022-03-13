@@ -16,6 +16,7 @@ const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
+    socket["nickname"] = "Anon";
     socket.onAny((event) => {
         console.log(`Socket Event: ${event}`);
     });
@@ -24,8 +25,20 @@ wsServer.on("connection", (socket) => {
         done();
         /* backend에서 실행시키는 것이 아니라 done 함수를 실행시키면 front에서 함수를 실행시킴 
          front에서 실행 버튼을 눌러주면 front에 있는 이 함수를 backend가 실행시킨다. */
+        socket.to(roomName).emit("welcome", socket.nickname);
+        //welcome이라는 이벤트를 roomname에 있는 모든 사람들에게 emit를 한것이다.
 
     });
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach(room =>
+            socket.to(room).emit("bye", socket.nickname)
+        );
+    });
+    socket.on("new_message", (msg, room, done) => {
+        socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
+        done(); //이 코드는 백앤드에서 실행되지 않는다 프론트에서 코드를 실행된다.
+    });
+    socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
 });
 
 function onSocketClose() {

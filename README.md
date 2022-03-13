@@ -1,4 +1,4 @@
-# My Noom
+# My Zoom
 
 Zoom Clone using WebRTC and Websockets.
 
@@ -63,4 +63,22 @@ server api에 보면 socket의 id와 room의 id가 있다.
 
 채팅room 만들기!!!
 
-## 지금까지 한 것
+2.5
+__공식문서를 보는 능력을 기르자__
+room에서 message나오는 기능 구현
+
+2.6
+    이제 좀 재대로된 채팅앱을 갖춘것 같다.
+    내가 출력하고 그게 상대에게 출력되는 것 만듬
+
+    const value = input.value; 
+     만약 이 줄을 사용하지 않고 마지막에서 input.value를 지워주게 되면 you: ${input.value}코드 실행시에 you 이후의 인자값을 비워진 채로 받아온다.
+
+
+
+## 앞으로 공부하고 공부하고 싶은 것
+
+    쓰레드 공부
+    RDBMS
+
+
