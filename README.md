@@ -74,8 +74,26 @@ room에서 message나오는 기능 구현
     const value = input.value; 
      만약 이 줄을 사용하지 않고 마지막에서 input.value를 지워주게 되면 you: ${input.value}코드 실행시에 you 이후의 인자값을 비워진 채로 받아온다.
 
+2.7
+
+2.8 adpter
+    db를 사용해서 서버간의 통신을 해주는 것이다. 
+    모든 클라이언트가 동일한 서버에 연결되는 것이 아니니까.value를 adpter은 어플리케이션으로 가는 통로이다. 
+
+    중요한 이론들이 많다.
+
+2.9 
+
+2.10 room count
+    countRoom함수를 이용해서 socket내부에 있는 room의 갯수를 가져온 후
+    나타내 준다.
+
+2.11 admin panel
+    socket.io에서 지원하는 admin ui가 있다.
+    
 
 
+3.0 user video
 ## 앞으로 공부하고 공부하고 싶은 것
 
     쓰레드 공부
