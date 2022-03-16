@@ -94,6 +94,23 @@ room에서 message나오는 기능 구현
 
 
 3.0 user video
+    기본적인 camera띄우기와 
+    button 만들기
+
+3.1 call constrols
+    getAudioTracks에는 정보가 들어있다.
+
+    getaudio
+    id, kind, label,
+
+    위와 같은 정보를 사용하여서 front에 정보를 띄우고 선택하게함.
+
+3.2 Camera Switch
+
+    MDN에서 찾아보면 audio의 카메라 설정과 audio 설정을 할수 있는 값을 찾을 수 있다.
+
+3.3
+
 ## 앞으로 공부하고 공부하고 싶은 것
 
     쓰레드 공부
