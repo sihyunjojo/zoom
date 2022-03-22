@@ -139,10 +139,43 @@ room에서 message나오는 기능 구현
     offer을 만들어서 offer을 상대 브라우저에게 주면 offer을 공유함으로 
     signaling process를 완수한다.
 
+3.6 Answer
+    setRomteDescription을 만들 차례이다
+    peer A한테 이 description을 알려주는 것
+    그 offer을 받는데 remotedescription 이다.
+
+    peer a 가 offer을 생성하고
+    peer b 가 answer을 생성함
+
+3.7 icecandidate
+    브라우저가 서로 소통 할 수 있게 도와주는 것이다.
+    다수의 cadidate들이 각각의 연결에서 제안되고
+    그들은 서로의 동의에 의해 연결된다
+    => 프로토콜 
+    => 소통 방식의 약속
+
+    addstream event
+
+3.8 Sender
+    기존 브라우저에서 설정을 변경해주면 연결 중인 다른 브라우저에서도 설정을 바꿔줘야함.
+
+    npm i localtennel
+    전세계와 공유해줌
+
+3.9 STUN
+    컴퓨터와 폰이 같은 wifi가 아닐 때는 
+    STUN서버라는 것이 필요하다.
+    peer to peer연결을 하고 있기때문에 서로를 반드시 찾아야한다. 서버는 공용 IP를 알려줄거다.
+    WEBRTC로 서비스나 전문적인 것을 하고 싶다면 자기 소유의 STUN 서버를 필요로한다. local tunnel 폰에서 
+
+3.10 Conclusion
 
 ## 앞으로 공부하고 공부하고 싶은 것
 
     쓰레드 공부
     RDBMS
+    하나의 브라우저에서만 카메라를 받아올 수 있음.
 
-
+# Data Channel => peer to peer 에서
+유저끼리 데이터를 받아올 수 있는 것.
+유저들은 이미지, 파일, 텍스ㅡ, 게임 업데이트 패킷 등을 갖올 수 잇음
