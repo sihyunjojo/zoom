@@ -1,26 +1,86 @@
-const socket = io() /* 알아서 socket.io를 찾아서 실행시킴 */
-    /* socket의 정보에서 socket의 id를 볼 수 있다. */
-const welcome = document.getElementById("welcome");
-const form = welcome.querySelector("form");
-const room = document.getElementById("room");
+const socket = io();
 
-room.hidden = true;
+const myFace = document.getElementById("myFace");
+const muteBtn = document.getElementById("mute");
+const cameraBtn = document.getElementById("camera");
+const camerasSelect = document.getElementById("cameras");
 
-let roomName = room.innerHTML;
+let myStream;
+let muted = false;
+let cameraOff = false;
 
-function showRoom() {
-    welcome.hidden = true;
-    room.hidden = false;
-    const h3 = room.querySelector("h3");
-    h3.innerText = `Room ${roomName}`
+async function getCameras() {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const cameras = devices.filter(device => device.kind === "videoinput");
+        const currentCamera = myStream.getVideoTracks()[0];
+        cameras.forEach((camera) => {
+            const option = document.createElement("option");
+            option.value = camera.deviceId;
+            option.innerText = camera.label;
+            if (currentCamera.label === camera.label) {
+                option.selected = true;
+            }
+            camerasSelect.appendChild(option);
+        });
+    } catch (e) {
+        console.log(e);
+    }
 }
 
-function handleRoomSubmit(event) {
-    event.preventDefault();
-    const input = form.querySelector("input");
-    socket.emit("enter_room", input.value, showRoom); /* 마지막 arguement에는 반드시 보내고 싶은 함수가 와야함. */
-    roomName = input.value;
-    input.value = "";
+async function getMedia(deviceId) {
+    const initialConstrains = {
+        audio: true,
+        video: { fancingMode: "user" },
+    };
+    const cameraConstraints = {
+        audio: true,
+        video: { deviceId: { exact: deviceId } },
+    };
+    try {
+        myStream = await navigator.mediaDevices.getUserMedia(
+            deviceId ? cameraConstraints : initialConstrains
+        );
+        myFace.srcObject = myStream;
+        if (!deviceId) {
+            await getCameras();
+        }
+    } catch (e) {
+        console.log(e);
+    }
 }
 
-form.addEventListener("submit", handleRoomSubmit);
+getMedia();
+
+function handleMuteClick() {
+    myStream
+        .getAudioTracks()
+        .forEach((track) => (track.enabled = !track.enabled)); //값을 반대로 바꿔줌.
+    if (!muted) {
+        muteBtn.innerText = "Unmute";
+        muted = true;
+    } else {
+        muteBtn.innerText = "mute";
+        muted = false;
+    }
+}
+
+function handleCameraClick() {
+    myStream
+        .getVideoTracks()
+        .forEach((track) => (track.enabled = !track.enabled));
+    if (cameraOff) {
+        cameraBtn.innerText = "Turn Camera Off";
+        cameraOff = false;
+    } else {
+        cameraBtn.innerText = "Turn Camera On";
+        cameraOff = true;
+    }
+}
+
+function handleCameraChange() {
+    getMedia(camerasSelect.value);
+}
+muteBtn.addEventListener("click", handleMuteClick);
+cameraBtn.addEventListener("click", handleCameraClick);
+camerasSelect.addEventListener("input", handleCameraChange);
